@@ -1,16 +1,12 @@
-import React from 'react'
+import React from "react";
 
-interface IProps {
-    [x: string]: unknown;
-}
+const ReviewsPage = (): JSX.Element => {
+  return (
+    <>
+      <h1>Reviews Page</h1>
+      <p>Here is the list of all reviews.</p>
+    </>
+  );
+};
 
-const ReviewsPage = ({ }: IProps): JSX.Element => {
-    return (
-        <>
-            <h1>Reviews Page</h1>
-            <p>Here is the list of all reviews.</p>
-        </>
-    )
-}
-
-export default ReviewsPage
+export default ReviewsPage;

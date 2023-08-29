@@ -15,6 +15,9 @@
     "typescript": "5.2.2"
   },
   "scripts": {
-    "dev": "next dev"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "format": "prettier --write \"./app/**/*.{ts,tsx,css}\""
   }
 }

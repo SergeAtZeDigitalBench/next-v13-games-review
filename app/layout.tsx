@@ -1,6 +1,8 @@
 import React from "react";
 
-interface ILayoutProps { children: React.ReactNode }
+interface ILayoutProps {
+  children: React.ReactNode;
+}
 
 const RootLayout = ({ children }: ILayoutProps) => {
   return (

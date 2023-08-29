@@ -3,7 +3,11 @@ import React from "react";
 const RootLayout = ({ children }) => {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <header>[header]</header>
+        <main>{children}</main>
+        <footer>[footer]</footer>
+      </body>
     </html>
   );
 };

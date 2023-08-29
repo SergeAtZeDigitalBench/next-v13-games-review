@@ -1,6 +1,8 @@
 import React from "react";
 
-const RootLayout = ({ children }) => {
+interface ILayoutProps { children: React.ReactNode }
+
+const RootLayout = ({ children }: ILayoutProps) => {
   return (
     <html lang="en">
       <body>

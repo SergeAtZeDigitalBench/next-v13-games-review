@@ -9,7 +9,10 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "prettier": "^3.0.3"
+    "@types/node": "20.5.7",
+    "@types/react": "18.2.21",
+    "prettier": "^3.0.3",
+    "typescript": "5.2.2"
   },
   "scripts": {
     "dev": "next dev"

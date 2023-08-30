@@ -4,11 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "marked": "^7.0.5",
     "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/marked": "^5.0.1",
     "@types/node": "20.5.7",
     "@types/react": "18.2.21",
     "autoprefixer": "^10.4.15",

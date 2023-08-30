@@ -2,12 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 import Heading from "@/components/Heading";
-
-const GAMES = [
-  { id: "hellblade", title: "Hellblade" },
-  { id: "hollow-knight", title: "Hollow Knight" },
-  { id: "stardew-valley", title: "Stardew Valley" },
-];
+import { GAMES } from "@/constants";
 
 const ReviewsPage = (): JSX.Element => {
   return (

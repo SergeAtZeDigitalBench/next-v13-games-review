@@ -2,6 +2,7 @@
 title: Stardew Valley
 date: 2023-08-30T10:46:17.008Z
 image: /images/stardew-valley.jpg
+slug: stardew-valley
 ---
 
 ## About

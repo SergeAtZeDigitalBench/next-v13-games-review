@@ -2,6 +2,7 @@
 title: Hollow Knight
 date: 2023-08-30T10:46:17.008Z
 image: /images/hollow-knight.jpg
+slug: hollow-knight
 ---
 
 ## About

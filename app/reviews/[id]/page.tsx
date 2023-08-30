@@ -1,16 +1,31 @@
 import React from "react";
+import { marked } from "marked";
+import matter from "gray-matter";
 import { readFile } from "fs/promises";
 import path from "path";
-import { marked } from "marked";
 
 import Heading from "@/components/Heading";
 
+interface IData {
+  title: string;
+  date: string;
+  image: string;
+}
+
+interface FileMdData {
+  data: IData;
+  html: string;
+}
+
 const getFileContent = async (
   filePath: string,
-): Promise<[string, null] | [null, string]> => {
+): Promise<[FileMdData, null] | [null, string]> => {
   try {
     const md = await readFile(filePath, { encoding: "utf-8" });
-    return [md, null];
+    const { data, content } = matter(md);
+    const html = marked.parse(content);
+
+    return [{ data, html } as FileMdData, null];
   } catch (error) {
     const msg: string =
       error instanceof Error ? error.message : (error as any).ToString();
@@ -18,40 +33,36 @@ const getFileContent = async (
   }
 };
 
-const toSentenceCase = (paramStringValue: string) =>
-  paramStringValue
-    .split("-")
-    .map((current) => current.charAt(0).toUpperCase() + current.slice(1))
-    .join(" ");
-
 const ReviewDetailsPage = async ({ params }: { params: { id: string } }) => {
-  const title = toSentenceCase(params.id);
-  const imageSrc = `/images/${params.id}.jpg`;
   const pathToFile = path.join(
     process.cwd(),
     "content",
     "reviews",
     `${params.id}.md`,
   );
-  const [data, error] = await getFileContent(pathToFile);
+  const [fileData, error] = await getFileContent(pathToFile);
 
-  return (
+  return fileData ? (
     <>
-      <Heading>{title}</Heading>
+      <Heading>{fileData.data.title}</Heading>
+      <p className="pb-2 italic">
+        Added on: {new Date(fileData.data.date).toDateString()}
+      </p>
       <img
-        src={imageSrc}
-        alt={title}
+        src={fileData.data.image}
+        alt={fileData.data.title}
         width={640}
         height={360}
         className="rounded mb-2"
       />
-      {data && (
-        <article
-          className=" max-w-screen-sm prose prose-slate"
-          dangerouslySetInnerHTML={{ __html: marked.parse(data) }}
-        />
-      )}
+
+      <article
+        className=" max-w-screen-sm prose prose-slate"
+        dangerouslySetInnerHTML={{ __html: fileData.html }}
+      />
     </>
+  ) : (
+    <p className="text-red-600 font-bold text-xl text-center">{error}</p>
   );
 };
 

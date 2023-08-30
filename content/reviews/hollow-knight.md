@@ -1,4 +1,10 @@
-## About the game
+---
+title: Hollow Knight
+date: 2023-08-30T10:46:17.008Z
+image: /images/hollow-knight.jpg
+---
+
+## About
 
 **Hollow Knight** is a 2017 Metroidvania video game developed and published by independent developer Team Cherry. In the game, the player controls the Knight, a nameless insectoid warrior, who explores Hallownest, a fallen kingdom plagued by a supernatural disease, known as the infection.
 

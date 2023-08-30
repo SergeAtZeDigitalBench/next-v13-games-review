@@ -1,4 +1,10 @@
-## About the game
+---
+title: Hellblade Senua's Sacrifice
+date: 2023-08-30T10:46:17.008Z
+image: /images/hellblade.jpg
+---
+
+## About
 
 **Hellblade: Senua's Sacrifice** is a 2017 action-adventure game developed and published by the British video game development studio Ninja Theory. Set in a dark fantasy world inspired by Norse mythology and Celtic culture, the game follows Senua, a Pict warrior who must make her way to Helheim by defeating otherworldly entities and facing their challenges, in order to rescue the soul of her dead lover from the goddess Hela.
 

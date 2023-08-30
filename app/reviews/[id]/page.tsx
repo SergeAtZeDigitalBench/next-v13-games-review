@@ -1,6 +1,7 @@
 import React from "react";
 import { readFile } from "fs/promises";
 import path from "path";
+import { marked } from "marked";
 
 import Heading from "@/components/Heading";
 
@@ -45,7 +46,9 @@ const ReviewDetailsPage = async ({ params }: { params: { id: string } }) => {
         className="rounded mb-2"
       />
       <p>THis will be a review about the {title}</p>
-      {data && <div>{data}</div>}
+      {data && (
+        <article dangerouslySetInnerHTML={{ __html: marked.parse(data) }} />
+      )}
     </div>
   );
 };

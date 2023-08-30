@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "next/link";
 
+import Heading from "@/components/Heading";
+
 const GAMES = [
   { id: "baldour-gates", title: "Baldour Gates" },
   { id: "hollow-knight", title: "Hollow Knight" },
@@ -18,7 +20,7 @@ const ReviewsPage = (): JSX.Element => {
           ))}
         </ul>
       </nav>
-      <h1>Reviews Page</h1>
+      <Heading>Reviews Page</Heading>
       <p>Here is the list of all reviews.</p>
     </>
   );

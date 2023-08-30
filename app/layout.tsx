@@ -1,5 +1,7 @@
 import React from "react";
-import Link from "next/link";
+import NavBar from "@/components/NavBar";
+
+import "./globals.css";
 
 interface ILayoutProps {
   children: React.ReactNode;
@@ -8,27 +10,19 @@ interface ILayoutProps {
 const RootLayout = ({ children }: ILayoutProps) => {
   return (
     <html lang="en">
-      <body>
+      <body className="px-4 py-2 flex flex-col min-h-screen bg-orange-50">
         <header>
-          <nav>
-            <ul>
-              <li>
-                <Link href="/">Home</Link>
-              </li>
-              <li>
-                <Link href="/about">About</Link>
-              </li>
-              <li>
-                <Link href="/reviews">Reviews</Link>
-              </li>
-            </ul>
-          </nav>
+          <NavBar />
         </header>
-        <main>{children}</main>
-        <footer>
+        <main className="py-3 grow">{children}</main>
+        <footer className="bordet-t py-3 text-xs text-center">
           <p>
             Game data and images courtesy of{" "}
-            <a href="https://rawg.io/" target="_blank">
+            <a
+              href="https://rawg.io/"
+              target="_blank"
+              className="text-orange-800 hover:underline"
+            >
               RAWG.IO
             </a>
           </p>

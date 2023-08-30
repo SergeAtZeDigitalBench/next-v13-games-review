@@ -1,9 +1,11 @@
 import React from "react";
 
+import Heading from "@/components/Heading";
+
 const AboutPage = (): JSX.Element => {
   return (
     <>
-      <h1>About Page</h1>
+      <Heading>About Page</Heading>
       <p>This is about us and this app page</p>
     </>
   );

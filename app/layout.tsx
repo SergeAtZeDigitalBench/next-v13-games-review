@@ -1,6 +1,6 @@
 import React from "react";
 
-import { orbitron } from "@/app/fonts";
+import { orbitron, exo2 } from "@/app/fonts";
 import NavBar from "@/components/NavBar";
 import "./globals.css";
 
@@ -10,7 +10,7 @@ interface ILayoutProps {
 
 const RootLayout = ({ children }: ILayoutProps) => {
   return (
-    <html lang="en" className={orbitron.variable}>
+    <html lang="en" className={`${orbitron.variable} ${exo2.variable}`}>
       <body className="px-4 py-2 flex flex-col min-h-screen bg-orange-50">
         <header>
           <NavBar />

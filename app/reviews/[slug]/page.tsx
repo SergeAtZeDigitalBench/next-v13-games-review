@@ -2,10 +2,22 @@ import React from "react";
 
 import Heading from "@/components/Heading";
 import { IPageProps } from "@/types";
-import { getReview } from "@/lib";
+import { getReview, getReviewsList } from "@/lib";
+interface IPageParams {
+  slug: string;
+}
+
+export const generateStaticParams = async (): Promise<IPageParams[]> => {
+  const [reviews] = await getReviewsList();
+  if (!reviews) return [];
+
+  return reviews.map((curent) => ({ slug: curent.slug }));
+};
 
 const ReviewDetailsPage = async ({ params }: IPageProps<{ slug: string }>) => {
   const [review, error] = await getReview(params.slug);
+
+  console.log("[ReviewDetailsPage] rendering: ", params.slug);
 
   return review ? (
     <>

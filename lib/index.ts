@@ -39,6 +39,14 @@ const getReviewSummary = async (fileName: string): Promise<IData> => {
   return data as IData;
 };
 
+const sortByDate = (reviewsList: IData[]) =>
+  reviewsList.sort((current, next) => {
+    const dateCurrent = new Date(current.date).getTime();
+    const dateNext = new Date(next.date).getTime();
+
+    return dateNext - dateCurrent;
+  });
+
 export const getReviewsList = async (): Promise<
   [IData[], null] | [null, string]
 > => {
@@ -48,7 +56,7 @@ export const getReviewsList = async (): Promise<
     const reviews = await Promise.all(
       filenames.map((fileName) => getReviewSummary(fileName)),
     );
-    return [reviews, null];
+    return [sortByDate(reviews), null];
   } catch (error) {
     const msg: string =
       error instanceof Error ? error.message : (error as any).ToString();
@@ -64,5 +72,5 @@ export const getFeaturedReview = async (): Promise<
     return [null, error];
   }
 
-  return [reviewsList[0], null];
+  return [sortByDate(reviewsList)[0], null];
 };

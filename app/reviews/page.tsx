@@ -11,7 +11,7 @@ const ReviewsPage = async () => {
     <>
       <Heading>Reviews</Heading>
       <nav>
-        <ul className="flex flex-col gap-3">
+        <ul className="flex gap-3 sm:flex-row flex-wrap">
           {!!reviewsList &&
             reviewsList.map(({ title, slug }) => (
               <li

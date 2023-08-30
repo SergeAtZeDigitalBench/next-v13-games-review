@@ -1,6 +1,6 @@
 ---
 title: Hellblade Senua's Sacrifice
-date: 2023-08-30T10:46:17.008Z
+date: 2023-08-30T14:08:07.356Z
 image: /images/hellblade.jpg
 slug: hellblade
 ---

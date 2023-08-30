@@ -1,3 +1,1 @@
-# Hellblade
-
 ## About the game

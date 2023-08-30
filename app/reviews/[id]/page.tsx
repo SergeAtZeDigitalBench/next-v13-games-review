@@ -36,7 +36,7 @@ const ReviewDetailsPage = async ({ params }: { params: { id: string } }) => {
   const [data, error] = await getFileContent(pathToFile);
 
   return (
-    <div>
+    <>
       <Heading>{title}</Heading>
       <img
         src={imageSrc}
@@ -45,11 +45,13 @@ const ReviewDetailsPage = async ({ params }: { params: { id: string } }) => {
         height={360}
         className="rounded mb-2"
       />
-      <p>THis will be a review about the {title}</p>
       {data && (
-        <article dangerouslySetInnerHTML={{ __html: marked.parse(data) }} />
+        <article
+          className=" max-w-screen-sm prose prose-slate"
+          dangerouslySetInnerHTML={{ __html: marked.parse(data) }}
+        />
       )}
-    </div>
+    </>
   );
 };
 

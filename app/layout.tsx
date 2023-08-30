@@ -16,7 +16,7 @@ const RootLayout = ({ children }: ILayoutProps) => {
           <NavBar />
         </header>
         <main className="py-3 grow">{children}</main>
-        <footer className="bordet-t py-3 text-xs text-center">
+        <footer className="bordet-t py-3 text-xs text-center text-slate-500">
           <p>
             Game data and images courtesy of{" "}
             <a

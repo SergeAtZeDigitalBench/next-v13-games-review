@@ -1,8 +1,9 @@
 import React from "react";
 
 import Heading from "@/components/Heading";
-import { IPageProps } from "@/types";
 import { getReview, getReviewsList } from "@/lib";
+import { IPageProps } from "@/types";
+
 interface IPageParams {
   slug: string;
 }

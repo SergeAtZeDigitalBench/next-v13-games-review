@@ -4,24 +4,38 @@ import Link from "next/link";
 import Heading from "@/components/Heading";
 
 const GAMES = [
-  { id: "baldour-gates", title: "Baldour Gates" },
+  { id: "hellblade", title: "Hellblade" },
   { id: "hollow-knight", title: "Hollow Knight" },
+  { id: "stardew-valley", title: "Stardew Valley" },
 ];
 
 const ReviewsPage = (): JSX.Element => {
   return (
     <>
+      <Heading>Reviews</Heading>
       <nav>
-        <ul>
+        <ul className="flex flex-col gap-3">
           {GAMES.map(({ id, title }) => (
-            <li key={id}>
-              <Link href={`/reviews/${id}`}>{title}</Link>
+            <li
+              key={id}
+              className="bg-white border w-80 rounded shadow hover:shadow-xl"
+            >
+              <Link href={`/reviews/${id}`}>
+                <img
+                  src={`/images/${id}.jpg`}
+                  alt={title}
+                  width={320}
+                  height={180}
+                  className="rounded-t mb-2"
+                />
+                <h2 className="text-xl text-center font-semibold font-orbitron">
+                  {title}
+                </h2>
+              </Link>
             </li>
           ))}
         </ul>
       </nav>
-      <Heading>Reviews Page</Heading>
-      <p>Here is the list of all reviews.</p>
     </>
   );
 };

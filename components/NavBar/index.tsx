@@ -6,11 +6,14 @@ const NavBar = (): JSX.Element => {
     <nav>
       <ul className="flex gap-2">
         <li>
-          <Link href="/" className="text-orange-800 hover:underline">
-            Home
+          <Link
+            href="/"
+            className="text-orange-800 hover:underline font-bold font-orbitron"
+          >
+            Indie Gamer
           </Link>
         </li>
-        <li>
+        <li className="ml-auto">
           <Link href="/about" className="text-orange-800 hover:underline">
             About
           </Link>

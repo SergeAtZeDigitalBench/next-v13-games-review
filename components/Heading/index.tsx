@@ -5,7 +5,7 @@ interface IProps {
 }
 
 const Heading = ({ children }: IProps): JSX.Element => {
-  return <h1 className="text-2xl font-bold pb-3">{children}</h1>;
+  return <h1 className="text-2xl font-bold pb-3 font-orbitron">{children}</h1>;
 };
 
 export default Heading;

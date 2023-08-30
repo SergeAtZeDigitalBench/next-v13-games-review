@@ -10,14 +10,14 @@ const ReviewsPage = (): JSX.Element => {
       <Heading>Reviews</Heading>
       <nav>
         <ul className="flex flex-col gap-3">
-          {GAMES.map(({ id, title }) => (
+          {GAMES.map(({ id, title, slug }) => (
             <li
               key={id}
               className="bg-white border w-80 rounded shadow hover:shadow-xl"
             >
-              <Link href={`/reviews/${id}`}>
+              <Link href={`/reviews/${slug}`}>
                 <img
-                  src={`/images/${id}.jpg`}
+                  src={`/images/${slug}.jpg`}
                   alt={title}
                   width={320}
                   height={180}

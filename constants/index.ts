@@ -1,5 +1,5 @@
 export const GAMES = [
-  { id: "hellblade", title: "Hellblade" },
-  { id: "hollow-knight", title: "Hollow Knight" },
-  { id: "stardew-valley", title: "Stardew Valley" },
+  { id: "hellblade", slug: "hellblade", title: "Hellblade" },
+  { id: "hollow-knight", slug: "hollow-knight", title: "Hollow Knight" },
+  { id: "stardew-valley", slug: "stardew-valley", title: "Stardew Valley" },
 ];

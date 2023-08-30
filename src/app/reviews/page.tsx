@@ -1,8 +1,14 @@
 import React from "react";
 import Link from "next/link";
+import { Metadata } from "next";
 
 import Heading from "@/components/Heading";
 import { getReviewsList } from "@/lib";
+
+export const metadata: Metadata = {
+  title: "Reviews",
+  description: "The indie games review list",
+};
 
 const ReviewsPage = async () => {
   const [reviewsList] = await getReviewsList();

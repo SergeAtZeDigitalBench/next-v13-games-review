@@ -1,6 +1,12 @@
 import React from "react";
+import { Metadata } from "next";
 
 import Heading from "@/components/Heading";
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "This application getting you the best indie games reviews",
+};
 
 const AboutPage = (): JSX.Element => {
   return (

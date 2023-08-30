@@ -1,9 +1,17 @@
 import React from "react";
+import { Metadata } from "next";
 
 import { orbitron, exo2 } from "@/app/fonts";
 import NavBar from "@/components/NavBar";
 import "./globals.css";
 
+export const metadata: Metadata = {
+  title: {
+    default: "Indie Gamer",
+    template: "Indie Gamer | %s",
+  },
+  description: "The best indie games reviewed for you",
+};
 interface ILayoutProps {
   children: React.ReactNode;
 }

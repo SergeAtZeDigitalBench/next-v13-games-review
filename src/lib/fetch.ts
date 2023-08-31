@@ -1,3 +1,4 @@
+import { marked } from "marked";
 import qs from "qs";
 
 import {
@@ -10,24 +11,7 @@ import {
 } from "@/types";
 import { CMS_BASE_URL } from "@/constants";
 
-const reviewsUrl =
-  `${CMS_BASE_URL}/api/reviews` +
-  "?" +
-  qs.stringify(
-    {
-      fields: ["slug", "title", "subtitle", "publishedAt"],
-      populate: {
-        image: {
-          fields: ["url"],
-        },
-      },
-      pagination: {
-        pageSize: 6,
-      },
-      sort: ["publishedAt:desc"],
-    },
-    { encodeValuesOnly: true },
-  );
+const API_URL_REVIEWS = `${CMS_BASE_URL}/api/reviews`;
 
 const fetchJsonData = async <D = unknown>(
   url: string,
@@ -55,6 +39,24 @@ const getImageUrl = (img: ICmsItemPayload<ICmsImage>) =>
 export const getReviewsList = async (): Promise<
   [IReviewSummary[], null] | [null, string]
 > => {
+  const reviewsUrl =
+    API_URL_REVIEWS +
+    "?" +
+    qs.stringify(
+      {
+        fields: ["slug", "title", "subtitle", "publishedAt"],
+        populate: {
+          image: {
+            fields: ["url"],
+          },
+        },
+        pagination: {
+          pageSize: 6,
+        },
+        sort: ["publishedAt:desc"],
+      },
+      { encodeValuesOnly: true },
+    );
   const [reviews, error] = await fetchJsonData<ICmsListOfReviews>(reviewsUrl);
 
   if (error !== null) return [null, error];
@@ -86,7 +88,7 @@ export const getReview = async (
   slug: string,
 ): Promise<[IReviewDetails, null] | [null, string]> => {
   const reviewBySlugUrl =
-    `${CMS_BASE_URL}/api/reviews` +
+    API_URL_REVIEWS +
     "?" +
     qs.stringify(
       {
@@ -98,6 +100,10 @@ export const getReview = async (
         },
         filters: {
           slug: { $eq: slug },
+        },
+        pagination: {
+          pageSize: 1,
+          withCount: false,
         },
       },
       { encodeValuesOnly: true },
@@ -114,26 +120,31 @@ export const getReview = async (
     return [null, `Error: Not found by ${slug}`];
   }
 
-  const { publishedAt, image, ...restOfDetails } =
+  const { publishedAt, image, body, ...restOfDetails } =
     reviewsFound.data[0].attributes;
 
   return [
-    { ...restOfDetails, image: getImageUrl(image), date: publishedAt },
+    {
+      ...restOfDetails,
+      image: getImageUrl(image),
+      date: publishedAt,
+      body: marked.parse(body),
+    },
     null,
   ];
 };
 
 export const getSlugs = async (): Promise<
-  [{ slug: string }[], null] | [null, string]
+  [string[], null] | [null, string]
 > => {
   const reviewsListUrlSlugsOnly =
-    `${CMS_BASE_URL}/api/reviews` +
+    API_URL_REVIEWS +
     "?" +
     qs.stringify(
       {
         fields: ["slug", "publishedAt"],
         pagination: {
-          pageSize: 6,
+          pageSize: 100,
         },
         sort: ["publishedAt:desc"],
       },
@@ -146,9 +157,7 @@ export const getSlugs = async (): Promise<
 
   if (error !== null) return [null, error];
 
-  const pageParams = reviews.data.map((current) => ({
-    slug: current.attributes.slug,
-  }));
+  const pageParams = reviews.data.map((current) => current.attributes.slug);
 
   return [pageParams, null];
 };

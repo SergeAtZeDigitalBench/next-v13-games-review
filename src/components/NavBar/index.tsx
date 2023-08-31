@@ -14,13 +14,13 @@ const NavBar = (): JSX.Element => {
           </Link>
         </li>
         <li className="ml-auto">
-          <Link href="/about" className="text-orange-800 hover:underline">
-            About
+          <Link href="/reviews" className="text-orange-800 hover:underline">
+            Reviews
           </Link>
         </li>
         <li>
-          <Link href="/reviews" className="text-orange-800 hover:underline">
-            Reviews
+          <Link href="/about" className="text-orange-800 hover:underline">
+            About
           </Link>
         </li>
       </ul>

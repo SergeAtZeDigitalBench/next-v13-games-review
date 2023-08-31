@@ -17,7 +17,7 @@ export const generateStaticParams = async (): Promise<IPageParams[]> => {
   const [slugs] = await getSlugs();
   if (!slugs) return [];
 
-  return slugs;
+  return slugs.map((slug) => ({ slug }));
 };
 
 /**

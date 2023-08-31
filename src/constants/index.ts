@@ -16,3 +16,5 @@ const getEnvVar = (varname: string) => {
 };
 
 export const RAWG_API_KEY = getEnvVar("RAWG_API_KEY");
+
+export const CMS_BASE_URL = getEnvVar("CMS_BASE_URL");

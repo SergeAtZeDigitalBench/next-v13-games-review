@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 import Heading from "@/components/Heading";
-import { getFeaturedReview } from "@/lib";
+import { getFeaturedReview } from "@/lib/fetch";
 
 const Homepage = async () => {
   const [featured, error] = await getFeaturedReview();
@@ -19,7 +19,7 @@ const Homepage = async () => {
             className="flex flex-col sm:flex-row"
           >
             <img
-              src={`/images/${featured.slug}.jpg`}
+              src={featured.image}
               alt={featured.title}
               width={320}
               height={180}

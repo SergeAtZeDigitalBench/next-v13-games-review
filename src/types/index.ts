@@ -5,18 +5,15 @@ export interface IPageProps<P = Record<string, any>, Q = Record<string, any>> {
   searchParams: Q;
 }
 
-export interface IData {
+export interface IReviewSummary {
   title: string;
   date: string;
   image: string;
   slug: string;
 }
 
-export interface IFileMdData {
-  data: IData;
-  body: string;
-}
-
-export interface IReviewDetails extends Omit<ICmsReviewDetails, "image"> {
+export interface IReviewDetails
+  extends Omit<ICmsReviewDetails, "image" | "publishedAt"> {
   image: string;
+  date: string;
 }

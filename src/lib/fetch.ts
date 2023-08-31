@@ -2,9 +2,11 @@ import qs from "qs";
 
 import {
   ICmsListOfReviews,
-  IData,
+  IReviewSummary,
   ICmsListOfReviewsDetails,
   IReviewDetails,
+  ICmsImage,
+  ICmsItemPayload,
 } from "@/types";
 import { CMS_BASE_URL } from "@/constants";
 
@@ -47,10 +49,11 @@ const fetchJsonData = async <D = unknown>(
   }
 };
 
-const getImageUrl = (imgPath: string) => CMS_BASE_URL + imgPath;
+const getImageUrl = (img: ICmsItemPayload<ICmsImage>) =>
+  CMS_BASE_URL + img.data.attributes.url;
 
 export const getReviewsList = async (): Promise<
-  [IData[], null] | [null, string]
+  [IReviewSummary[], null] | [null, string]
 > => {
   const [reviews, error] = await fetchJsonData<ICmsListOfReviews>(reviewsUrl);
 
@@ -59,7 +62,7 @@ export const getReviewsList = async (): Promise<
   const reviewsList = reviews.data.map(
     ({ attributes: { title, image, publishedAt, slug } }) => ({
       title,
-      image: getImageUrl(image.data.attributes.url),
+      image: getImageUrl(image),
       date: publishedAt,
       slug,
     }),
@@ -68,7 +71,18 @@ export const getReviewsList = async (): Promise<
   return [reviewsList, null];
 };
 
-export const fetchReviewBySlug = async (
+export const getFeaturedReview = async (): Promise<
+  [IReviewSummary, null] | [null, string]
+> => {
+  const [reviewsList, error] = await getReviewsList();
+  if (!reviewsList) {
+    return [null, error];
+  }
+
+  return [reviewsList[0], null];
+};
+
+export const getReview = async (
   slug: string,
 ): Promise<[IReviewDetails, null] | [null, string]> => {
   const reviewBySlugUrl =
@@ -100,10 +114,11 @@ export const fetchReviewBySlug = async (
     return [null, `Error: Not found by ${slug}`];
   }
 
-  const details = reviewsFound.data[0].attributes;
+  const { publishedAt, image, ...restOfDetails } =
+    reviewsFound.data[0].attributes;
 
   return [
-    { ...details, image: getImageUrl(details.image.data.attributes.url) },
+    { ...restOfDetails, image: getImageUrl(image), date: publishedAt },
     null,
   ];
 };

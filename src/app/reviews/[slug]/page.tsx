@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 
-import { getReview, getReviewsList } from "@/lib";
+import { getReview, getReviewsList } from "@/lib/fetch";
 import ShareLink from "@/components/ShareLink";
 import Heading from "@/components/Heading";
 import { IPageProps } from "@/types";
@@ -29,25 +29,25 @@ export const generateMetadata = async (
   const [review] = await getReview(props.params.slug);
 
   return {
-    title: review ? review.data.title : "Review",
+    title: review ? review.title : "Review",
   };
 };
 
 const ReviewDetailsPage = async ({ params }: IPageProps<{ slug: string }>) => {
-  const [review, error] = await getReview(params.slug);
+  const [found, error] = await getReview(params.slug);
 
-  return review ? (
+  return found ? (
     <>
-      <Heading>{review.data.title}</Heading>
+      <Heading>{found.title}</Heading>
       <div className="flex gap-3 items-baseline">
         <p className="pb-2 italic">
-          Added on: {new Date(review.data.date).toDateString()}
+          Added on: {new Date(found.date).toDateString()}
         </p>
         <ShareLink />
       </div>
       <img
-        src={review.data.image}
-        alt={review.data.title}
+        src={found.image}
+        alt={found.title}
         width={640}
         height={360}
         className="rounded mb-2"
@@ -55,7 +55,7 @@ const ReviewDetailsPage = async ({ params }: IPageProps<{ slug: string }>) => {
 
       <article
         className=" max-w-screen-sm prose prose-slate"
-        dangerouslySetInnerHTML={{ __html: review.body }}
+        dangerouslySetInnerHTML={{ __html: found.body }}
       />
     </>
   ) : (

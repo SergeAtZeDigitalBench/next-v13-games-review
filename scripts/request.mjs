@@ -65,7 +65,7 @@ const fetchReviews = async () => {
 /**
  * @param {string} slug
  */
-const fetchReviewBySlug = async (slug) => {
+const getReview = async (slug) => {
   const reviewBySlugUrl =
     "http://localhost:1337/api/reviews" +
     "?" +
@@ -108,4 +108,4 @@ const fetchReviewBySlug = async (slug) => {
   }
 };
 
-fetchReviewBySlug("hades-2018");
+getReview("hades-2018");

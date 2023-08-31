@@ -108,4 +108,43 @@ const getReview = async (slug) => {
   }
 };
 
-getReview("hades-2018");
+const fetchSlugs = async () => {
+  const reviewsListUrlSlugsOnly =
+    "http://localhost:1337/api/reviews" +
+    "?" +
+    qs.stringify(
+      {
+        fields: ["slug", "publishedAt"],
+        pagination: {
+          pageSize: 6,
+        },
+        sort: ["publishedAt:desc"],
+      },
+      { encodeValuesOnly: true },
+    );
+
+  const [reviews, error] = await fetchJsonData(reviewsListUrlSlugsOnly);
+
+  if (error !== null) {
+    console.log(error);
+    return [null, error];
+  }
+
+  const pageParams = reviews.data.map((current) => ({
+    slug: current.attributes.slug,
+  }));
+
+  return [pageParams, null];
+};
+
+fetchSlugs().then(([data, error]) => {
+  if (error) {
+    console.log("Error: ", error);
+    return;
+  }
+
+  fs.writeFile(
+    path.join(process.cwd(), "scripts", "slugs.json"),
+    JSON.stringify(data),
+  );
+});

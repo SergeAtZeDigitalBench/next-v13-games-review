@@ -122,3 +122,33 @@ export const getReview = async (
     null,
   ];
 };
+
+export const getSlugs = async (): Promise<
+  [{ slug: string }[], null] | [null, string]
+> => {
+  const reviewsListUrlSlugsOnly =
+    `${CMS_BASE_URL}/api/reviews` +
+    "?" +
+    qs.stringify(
+      {
+        fields: ["slug", "publishedAt"],
+        pagination: {
+          pageSize: 6,
+        },
+        sort: ["publishedAt:desc"],
+      },
+      { encodeValuesOnly: true },
+    );
+
+  const [reviews, error] = await fetchJsonData<ICmsListOfReviews>(
+    reviewsListUrlSlugsOnly,
+  );
+
+  if (error !== null) return [null, error];
+
+  const pageParams = reviews.data.map((current) => ({
+    slug: current.attributes.slug,
+  }));
+
+  return [pageParams, null];
+};

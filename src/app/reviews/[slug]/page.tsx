@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 
-import { getReview, getReviewsList } from "@/lib/fetch";
+import { getReview, getSlugs } from "@/lib/fetch";
 import ShareLink from "@/components/ShareLink";
 import Heading from "@/components/Heading";
 import { IPageProps } from "@/types";
@@ -14,10 +14,10 @@ interface IPageParams {
  * @description https://nextjs.org/docs/app/api-reference/functions/generate-static-params
  */
 export const generateStaticParams = async (): Promise<IPageParams[]> => {
-  const [reviews] = await getReviewsList();
-  if (!reviews) return [];
+  const [slugs] = await getSlugs();
+  if (!slugs) return [];
 
-  return reviews.map((curent) => ({ slug: curent.slug }));
+  return slugs;
 };
 
 /**

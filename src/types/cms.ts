@@ -20,19 +20,25 @@ export interface ICmsListPayload<D = Record<string, any>> {
 
 export interface ICmsItemPayload<D = Record<string, any>> {
   data: ICmsItem<D>;
-  meta: Record<string, any>;
+  meta?: Record<string, any>;
+}
+
+export interface ICmsImage {
+  url: string;
 }
 
 export interface ICmsReviewItem {
   slug: string;
   title: string;
-  body: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
   subtitle: string;
+  publishedAt: string;
+  image: ICmsItemPayload<ICmsImage>;
+}
+
+export interface ICmsReviewDetails extends ICmsReviewItem {
+  body: string;
 }
 
 export type ICmsListOfReviews = ICmsListPayload<ICmsReviewItem>;
 
-export type ICmsItemReview = ICmsItemPayload<ICmsReviewItem>;
+export type ICmsListOfReviewsDetails = ICmsListPayload<ICmsReviewDetails>;

@@ -1,8 +1,9 @@
 import React from "react";
 import { Metadata } from "next";
 
-import Heading from "@/components/Heading";
 import { getReview, getReviewsList } from "@/lib";
+import ShareLink from "@/components/ShareLink";
+import Heading from "@/components/Heading";
 import { IPageProps } from "@/types";
 
 interface IPageParams {
@@ -38,9 +39,12 @@ const ReviewDetailsPage = async ({ params }: IPageProps<{ slug: string }>) => {
   return review ? (
     <>
       <Heading>{review.data.title}</Heading>
-      <p className="pb-2 italic">
-        Added on: {new Date(review.data.date).toDateString()}
-      </p>
+      <div className="flex gap-3 items-baseline">
+        <p className="pb-2 italic">
+          Added on: {new Date(review.data.date).toDateString()}
+        </p>
+        <ShareLink />
+      </div>
       <img
         src={review.data.image}
         alt={review.data.title}

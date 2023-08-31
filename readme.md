@@ -1,3 +1,18 @@
+## Jamstack = FE:Next.js <=> BE: CMS + DB
+
+The games data will be fetched from the CMS which is Strapi Node.js app
+
+The `next-reviews-cms` application codebase can be cloned from: https://github.com/SergeAtZeDigitalBench/games-review-strapi-cms
+
+Once cloned, install as per readme instructions in there.
+
+You need to run it locally, which will be at `http://localhost:1337/`,
+
+and the CMS API will be accessible from `http://localhost:1337/api`
+
+**IMPORTANT:** for now, while the CMS is available only locally, the version of the `'main'` branch will be the `'main-local'`,
+so the Vercel production build doesn't fail due to the CMS API unavailability
+
 ## Deployment
 
 1. **As a node.js application**

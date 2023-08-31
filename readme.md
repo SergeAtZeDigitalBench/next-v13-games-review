@@ -20,6 +20,11 @@ module.exports = nextConfig;
 - `yarn build`
 - `npx serve@latest out/`, that will imitate the server serving static files (html/css/js)
 
+#### Hosting static website on Netlify example:
+
+- `yarn build` will produce an `out/` directory
+- On Netlify dashboard, select `Deploy manually` option, then drag your whole `out/` folder into the drag-n-drop window
+
 3. **Self-Hosting**
 
 As mentioned, you can also deploy your Next.js app to your own servers, provided that you have the required system administration skills to set up and maintain the servers.

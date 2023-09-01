@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Metadata } from "next";
+import Image from "next/image";
 
 import Heading from "@/components/Heading";
 import { getReviewsList } from "@/lib/fetch";
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 const ReviewsPage = async () => {
-  const [reviewsList] = await getReviewsList();
+  const [reviewsList] = await getReviewsList(6);
 
   return (
     <>
@@ -19,13 +20,14 @@ const ReviewsPage = async () => {
       <nav>
         <ul className="flex gap-3 sm:flex-row flex-wrap">
           {!!reviewsList &&
-            reviewsList.map(({ title, slug, image }) => (
+            reviewsList.map(({ title, slug, image }, index) => (
               <li
                 key={slug}
                 className="bg-white border w-80 rounded shadow hover:shadow-xl"
               >
                 <Link href={`/reviews/${slug}`}>
-                  <img
+                  <Image
+                    priority={index === 0}
                     src={image}
                     alt={title}
                     width={320}

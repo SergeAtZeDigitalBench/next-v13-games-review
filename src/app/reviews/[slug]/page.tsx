@@ -1,5 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
+import Image from "next/image";
 
 import { getReview, getSlugs } from "@/lib/fetch";
 import ShareLink from "@/components/ShareLink";
@@ -39,20 +40,21 @@ const ReviewDetailsPage = async ({ params }: IPageProps<{ slug: string }>) => {
   return found ? (
     <>
       <Heading>{found.title}</Heading>
+      <p className="font-semibold mb-3">{found.subtitle}</p>
       <div className="flex gap-3 items-baseline">
         <p className="pb-2 italic">
           Added on: {new Date(found.date).toDateString()}
         </p>
         <ShareLink />
       </div>
-      <img
+      <Image
+        priority
         src={found.image}
         alt={found.title}
         width={640}
         height={360}
         className="rounded mb-2"
       />
-
       <article
         className=" max-w-screen-sm prose prose-slate"
         dangerouslySetInnerHTML={{ __html: found.body }}

@@ -10,6 +10,7 @@ export interface IReviewSummary {
   date: string;
   image: string;
   slug: string;
+  subtitle: string;
 }
 
 export interface IReviewDetails

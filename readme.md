@@ -21,6 +21,8 @@ so the Vercel production build doesn't fail due to the CMS API unavailability
 
 2. **If we want to serve the website as static files**
 
+to note: if any <Image/> component is used - replace by <img/>, as it will not work on static website version.
+
 - `next.config.js`
 
 ```js

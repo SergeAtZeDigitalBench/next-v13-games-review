@@ -4,6 +4,8 @@ import FeaturedList from "@/components/FeaturedList";
 import Heading from "@/components/Heading";
 import { getReviewsList } from "@/lib/fetch";
 
+export const dynamic = "force-dynamic";
+
 const Homepage = async () => {
   const [featured, error] = await getReviewsList(3);
 

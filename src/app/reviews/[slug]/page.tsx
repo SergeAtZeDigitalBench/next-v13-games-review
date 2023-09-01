@@ -1,25 +1,28 @@
 import React from "react";
 import { Metadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 import { getReview, getSlugs } from "@/lib/fetch";
 import ShareLink from "@/components/ShareLink";
 import Heading from "@/components/Heading";
 import { IPageProps } from "@/types";
 
-interface IPageParams {
-  slug: string;
-}
+export const dynamic = "force-dynamic";
+
+// interface IPageParams {
+//   slug: string;
+// }
 
 /**
  * @description https://nextjs.org/docs/app/api-reference/functions/generate-static-params
  */
-export const generateStaticParams = async (): Promise<IPageParams[]> => {
-  const [slugs] = await getSlugs();
-  if (!slugs) return [];
+// export const generateStaticParams = async (): Promise<IPageParams[]> => {
+//   const [slugs] = await getSlugs();
+//   if (!slugs) return [];
 
-  return slugs.map((slug) => ({ slug }));
-};
+//   return slugs.map((slug) => ({ slug }));
+// };
 
 /**
  * @description https://nextjs.org/docs/app/api-reference/functions/generate-metadata
@@ -27,7 +30,11 @@ export const generateStaticParams = async (): Promise<IPageParams[]> => {
 export const generateMetadata = async (
   props: IPageProps<{ slug: string }>,
 ): Promise<Metadata> => {
-  const [review] = await getReview(props.params.slug);
+  const [review, error] = await getReview(props.params.slug);
+
+  if (error !== null || !review) {
+    notFound();
+  }
 
   return {
     title: review ? review.title : "Review",
@@ -36,6 +43,10 @@ export const generateMetadata = async (
 
 const ReviewDetailsPage = async ({ params }: IPageProps<{ slug: string }>) => {
   const [found, error] = await getReview(params.slug);
+
+  if (error !== null || !found) {
+    notFound();
+  }
 
   return found ? (
     <>

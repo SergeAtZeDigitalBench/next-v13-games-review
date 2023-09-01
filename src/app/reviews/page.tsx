@@ -6,6 +6,8 @@ import Image from "next/image";
 import Heading from "@/components/Heading";
 import { getReviewsList } from "@/lib/fetch";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Reviews",
   description: "The indie games review list",

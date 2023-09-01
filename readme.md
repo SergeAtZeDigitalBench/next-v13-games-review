@@ -13,6 +13,14 @@ and the CMS API will be accessible from `http://localhost:1337/api`
 **IMPORTANT:** for now, while the CMS is available only locally, the version of the `'main'` branch will be the `'main-local'`,
 so the Vercel production build doesn't fail due to the CMS API unavailability
 
+## Pages Revalidation by Webhooks
+
+- Next.js revalidation on-demand :https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#on-demand-revalidation
+
+- BE: CMS(Strapi) Webhooks: https://docs.strapi.io/dev-docs/backend-customization/webhooks
+- BE: CMS(Strapi) Create new webhook: https://strapi.io/blog/webhooks
+- Udemy lessons (80, 81): https://www.udemy.com/course/nextjs-by-example/learn/lecture/38855372#overview
+
 ## Deployment
 
 1. **As a node.js application**

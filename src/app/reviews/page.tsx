@@ -5,9 +5,7 @@ import Image from "next/image";
 
 import Heading from "@/components/Heading";
 import { getReviewsList } from "@/lib/fetch";
-import { DELAY_SEC } from "@/constants";
-
-export const revalidate = DELAY_SEC.MIN_10;
+import { CACHE_TAG } from "@/constants";
 
 export const metadata: Metadata = {
   title: "Reviews",
@@ -15,7 +13,9 @@ export const metadata: Metadata = {
 };
 
 const ReviewsPage = async () => {
-  const [reviewsList] = await getReviewsList(6);
+  const [reviewsList] = await getReviewsList(6, {
+    next: { tags: [CACHE_TAG.REVIEWS_LIST] },
+  });
 
   return (
     <>

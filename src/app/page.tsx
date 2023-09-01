@@ -3,12 +3,14 @@ import React from "react";
 import FeaturedList from "@/components/FeaturedList";
 import Heading from "@/components/Heading";
 import { getReviewsList } from "@/lib/fetch";
-import { DELAY_SEC } from "@/constants";
-
-export const revalidate = DELAY_SEC.MIN_10;
+import { CACHE_TAG } from "@/constants";
 
 const Homepage = async () => {
-  const [featured, error] = await getReviewsList(3);
+  const [featured, error] = await getReviewsList(3, {
+    next: {
+      tags: [CACHE_TAG.REVIEWS_LIST],
+    },
+  });
 
   return (
     <>

@@ -7,9 +7,8 @@ import { getReview, getSlugs } from "@/lib/fetch";
 import ShareLink from "@/components/ShareLink";
 import Heading from "@/components/Heading";
 import { IPageProps } from "@/types";
-import { DELAY_SEC } from "@/constants";
+import { CACHE_TAG } from "@/constants";
 
-export const revalidate = DELAY_SEC.MIN_10;
 interface IPageParams {
   slug: string;
 }
@@ -42,7 +41,9 @@ export const generateMetadata = async (
 };
 
 const ReviewDetailsPage = async ({ params }: IPageProps<{ slug: string }>) => {
-  const [found, error] = await getReview(params.slug);
+  const [found, error] = await getReview(params.slug, {
+    next: { tags: [CACHE_TAG.REVIEW_DETAILS] },
+  });
 
   if (error !== null || !found) {
     notFound();

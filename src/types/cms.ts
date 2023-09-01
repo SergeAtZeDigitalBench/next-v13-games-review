@@ -42,3 +42,18 @@ export interface ICmsReviewDetails extends ICmsReviewItem {
 export type ICmsListOfReviews = ICmsListPayload<ICmsReviewItem>;
 
 export type ICmsListOfReviewsDetails = ICmsListPayload<ICmsReviewDetails>;
+
+export interface IWhCmsEntryEvent<E = Record<string, any>> {
+  event:
+    | "entry.create"
+    | "entry.update"
+    | "entry.delete"
+    | "entry.publish"
+    | "entry.unpublish";
+  createdAt: string;
+  model: string;
+  uid: string;
+  entry: E;
+}
+
+export type IWhCmsReviewEvent = IWhCmsEntryEvent<ICmsReviewItem>;

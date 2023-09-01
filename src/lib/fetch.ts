@@ -38,6 +38,7 @@ const getImageUrl = (img: ICmsItemPayload<ICmsImage>) =>
 
 export const getReviewsList = async (
   pageSize: number,
+  options?: RequestInit,
 ): Promise<[IReviewSummary[], null] | [null, string]> => {
   const reviewsUrl =
     API_URL_REVIEWS +
@@ -57,7 +58,10 @@ export const getReviewsList = async (
       },
       { encodeValuesOnly: true },
     );
-  const [reviews, error] = await fetchJsonData<ICmsListOfReviews>(reviewsUrl);
+  const [reviews, error] = await fetchJsonData<ICmsListOfReviews>(
+    reviewsUrl,
+    options,
+  );
 
   if (error !== null) return [null, error];
 
@@ -76,6 +80,7 @@ export const getReviewsList = async (
 
 export const getReview = async (
   slug: string,
+  options?: RequestInit,
 ): Promise<[IReviewDetails, null] | [null, string]> => {
   const reviewBySlugUrl =
     API_URL_REVIEWS +
@@ -99,8 +104,10 @@ export const getReview = async (
       { encodeValuesOnly: true },
     );
 
-  const [reviewsFound, error] =
-    await fetchJsonData<ICmsListOfReviewsDetails>(reviewBySlugUrl);
+  const [reviewsFound, error] = await fetchJsonData<ICmsListOfReviewsDetails>(
+    reviewBySlugUrl,
+    options,
+  );
 
   if (error !== null) {
     return [null, error];
@@ -124,9 +131,9 @@ export const getReview = async (
   ];
 };
 
-export const getSlugs = async (): Promise<
-  [string[], null] | [null, string]
-> => {
+export const getSlugs = async (
+  options?: RequestInit,
+): Promise<[string[], null] | [null, string]> => {
   const reviewsListUrlSlugsOnly =
     API_URL_REVIEWS +
     "?" +
@@ -143,6 +150,7 @@ export const getSlugs = async (): Promise<
 
   const [reviews, error] = await fetchJsonData<ICmsListOfReviews>(
     reviewsListUrlSlugsOnly,
+    options,
   );
 
   if (error !== null) return [null, error];

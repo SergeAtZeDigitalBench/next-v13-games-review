@@ -5,8 +5,9 @@ import Image from "next/image";
 
 import Heading from "@/components/Heading";
 import { getReviewsList } from "@/lib/fetch";
+import { DELAY_SEC } from "@/constants";
 
-export const dynamic = "force-dynamic";
+export const revalidate = DELAY_SEC.MIN_10;
 
 export const metadata: Metadata = {
   title: "Reviews",

@@ -7,22 +7,22 @@ import { getReview, getSlugs } from "@/lib/fetch";
 import ShareLink from "@/components/ShareLink";
 import Heading from "@/components/Heading";
 import { IPageProps } from "@/types";
+import { DELAY_SEC } from "@/constants";
 
-export const dynamic = "force-dynamic";
-
-// interface IPageParams {
-//   slug: string;
-// }
+export const revalidate = DELAY_SEC.MIN_10;
+interface IPageParams {
+  slug: string;
+}
 
 /**
  * @description https://nextjs.org/docs/app/api-reference/functions/generate-static-params
  */
-// export const generateStaticParams = async (): Promise<IPageParams[]> => {
-//   const [slugs] = await getSlugs();
-//   if (!slugs) return [];
+export const generateStaticParams = async (): Promise<IPageParams[]> => {
+  const [slugs] = await getSlugs();
+  if (!slugs) return [];
 
-//   return slugs.map((slug) => ({ slug }));
-// };
+  return slugs.map((slug) => ({ slug }));
+};
 
 /**
  * @description https://nextjs.org/docs/app/api-reference/functions/generate-metadata

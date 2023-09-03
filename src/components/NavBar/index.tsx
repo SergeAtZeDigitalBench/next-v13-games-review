@@ -1,27 +1,23 @@
 import React from "react";
-import Link from "next/link";
+
+import NavLink from "@/components/NavLink";
 
 const NavBar = (): JSX.Element => {
   return (
     <nav>
       <ul className="flex gap-2">
         <li>
-          <Link
-            href="/"
-            className="text-orange-800 hover:underline font-bold font-orbitron"
-          >
+          <NavLink href="/" className="font-bold font-orbitron">
             Indie Gamer
-          </Link>
+          </NavLink>
         </li>
         <li className="ml-auto">
-          <Link href="/reviews" className="text-orange-800 hover:underline">
-            Reviews
-          </Link>
+          <NavLink href="/reviews">Reviews</NavLink>
         </li>
         <li>
-          <Link href="/about" className="text-orange-800 hover:underline">
+          <NavLink href="/about" prefetch={false}>
             About
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </nav>

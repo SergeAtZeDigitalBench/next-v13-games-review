@@ -3,27 +3,47 @@ import Link from "next/link";
 import { Metadata } from "next";
 import Image from "next/image";
 
+import Pagination from "@/components/Pagination";
 import Heading from "@/components/Heading";
-import { getReviewsList } from "@/lib/fetch";
+import { getReviewsList, getPageNumber } from "@/lib";
 import { CACHE_TAG } from "@/constants";
+import { IPageProps } from "@/types";
+
+const PAGE_SIZE = 6;
 
 export const metadata: Metadata = {
   title: "Reviews",
   description: "The indie games review list",
 };
 
-const ReviewsPage = async () => {
-  const [reviewsList] = await getReviewsList(6, {
-    next: { tags: [CACHE_TAG.REVIEWS_LIST] },
-  });
+const ReviewsPage = async ({
+  searchParams,
+}: IPageProps<{}, { page?: string }>) => {
+  const [reviewsPage] = await getReviewsList(
+    PAGE_SIZE,
+    getPageNumber(searchParams.page),
+    {
+      next: { tags: [CACHE_TAG.REVIEWS_LIST] },
+    },
+  );
 
   return (
     <>
       <Heading>Reviews</Heading>
+
+      {reviewsPage && (
+        <Pagination
+          href="/reviews"
+          page={searchParams.page}
+          totalPages={reviewsPage.pageCount}
+          firstPage={1}
+        />
+      )}
+
       <nav>
         <ul className="flex gap-3 sm:flex-row flex-wrap">
-          {!!reviewsList &&
-            reviewsList.map(({ title, slug, image }, index) => (
+          {!!reviewsPage &&
+            reviewsPage.reviews.map(({ title, slug, image }, index) => (
               <li
                 key={slug}
                 className="bg-white border w-80 rounded shadow hover:shadow-xl"

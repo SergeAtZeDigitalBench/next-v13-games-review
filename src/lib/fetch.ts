@@ -38,8 +38,11 @@ const getImageUrl = (img: ICmsItemPayload<ICmsImage>) =>
 
 export const getReviewsList = async (
   pageSize: number,
+  page: number,
   options?: RequestInit,
-): Promise<[IReviewSummary[], null] | [null, string]> => {
+): Promise<
+  [{ reviews: IReviewSummary[]; pageCount: number }, null] | [null, string]
+> => {
   const reviewsUrl =
     API_URL_REVIEWS +
     "?" +
@@ -52,20 +55,21 @@ export const getReviewsList = async (
           },
         },
         pagination: {
+          page,
           pageSize,
         },
         sort: ["publishedAt:desc"],
       },
       { encodeValuesOnly: true },
     );
-  const [reviews, error] = await fetchJsonData<ICmsListOfReviews>(
+  const [response, error] = await fetchJsonData<ICmsListOfReviews>(
     reviewsUrl,
     options,
   );
 
   if (error !== null) return [null, error];
 
-  const reviewsList = reviews.data.map(
+  const reviewsList = response.data.map(
     ({ attributes: { title, image, publishedAt, slug, subtitle } }) => ({
       title,
       image: getImageUrl(image),
@@ -75,7 +79,10 @@ export const getReviewsList = async (
     }),
   );
 
-  return [reviewsList, null];
+  return [
+    { reviews: reviewsList, pageCount: response.meta.pagination.pageCount },
+    null,
+  ];
 };
 
 export const getReview = async (

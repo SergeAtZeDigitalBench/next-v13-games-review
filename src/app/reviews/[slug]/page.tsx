@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import { getReview, getSlugs } from "@/lib/fetch";
+import { getReview, getSlugs } from "@/lib";
 import ShareLink from "@/components/ShareLink";
 import Heading from "@/components/Heading";
 import { IPageProps } from "@/types";

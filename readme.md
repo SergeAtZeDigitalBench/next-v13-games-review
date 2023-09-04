@@ -1,3 +1,10 @@
+## Branches
+
+- `main-local-combobox-list-serverside-props`, the search box, fetching initial searchable list of reviews - made server-side, passed as page static props,
+  which may have some downsides, if we have a large number of reviews, the static payload, props passed to generated page may increase the size of html file
+- `main-local` - the search box, fetching client-side th list of searchable reviews, meaning the only minimum of reviews list will be fetched based on the typed query
+- `main` - for now, while the CMS is available only locally, the version of the app, gets reviews by reading the local `.md` files so the Vercel production build doesn't fail due to the CMS API unavailability, later if we deploy the CMS to the cloud - we can merge `main-local` into `main` so we could use the cloud-based CMS to fetch our content
+
 ## Jamstack = FE:Next.js <=> BE: CMS + DB
 
 The games data will be fetched from the CMS which is Strapi Node.js app

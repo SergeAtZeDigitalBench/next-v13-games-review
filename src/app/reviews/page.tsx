@@ -36,17 +36,17 @@ const ReviewsPage = async ({
     <>
       <Heading>Reviews</Heading>
 
-      {reviewsPage && (
-        <div className="flex justify-between mb-3">
+      <div className="flex justify-between mb-3">
+        {reviewsPage && (
           <Pagination
             href="/reviews"
             page={searchParams.page}
             totalPages={reviewsPage.pageCount}
             firstPage={1}
           />
-          {reviewsSearchable && <SearchBox reviews={reviewsSearchable} />}
-        </div>
-      )}
+        )}
+        {reviewsSearchable && <SearchBox reviews={reviewsSearchable} />}
+      </div>
 
       <nav>
         <ul className="flex gap-3 sm:flex-row flex-wrap">

@@ -11,7 +11,7 @@ const filterReviews = (
   reviews: IReviewSearchable[],
   query: string,
 ): IReviewSearchable[] => {
-  if (!query) return reviews;
+  if (query.length < 2) return [];
   const queryPattern = query.toLowerCase();
 
   return reviews.filter(({ title }) => {

@@ -45,7 +45,7 @@ const Pagination = ({
       : href;
 
   return (
-    <div className="flex items-center gap-2 mb-3">
+    <div className="flex items-center gap-2">
       <PaginationButton href={prevPageHref} isDisabled={currentPage === 1}>
         <ChevronLeftIcon className="h-4 w-4" />
         <span className="sr-only">Previous page</span>

@@ -4,8 +4,9 @@ import { Metadata } from "next";
 import Image from "next/image";
 
 import Pagination from "@/components/Pagination";
+import SearchBox from "@/components/SearchBox";
 import Heading from "@/components/Heading";
-import { getReviewsList, getPageNumber } from "@/lib";
+import { getReviewsList, getPageNumber, getSearchableReviews } from "@/lib";
 import { CACHE_TAG } from "@/constants";
 import { IPageProps } from "@/types";
 
@@ -27,17 +28,24 @@ const ReviewsPage = async ({
     },
   );
 
+  const [reviewsSearchable] = await getSearchableReviews({
+    next: { tags: [CACHE_TAG.REVIEWS_LIST] },
+  });
+
   return (
     <>
       <Heading>Reviews</Heading>
 
       {reviewsPage && (
-        <Pagination
-          href="/reviews"
-          page={searchParams.page}
-          totalPages={reviewsPage.pageCount}
-          firstPage={1}
-        />
+        <div className="flex justify-between mb-3">
+          <Pagination
+            href="/reviews"
+            page={searchParams.page}
+            totalPages={reviewsPage.pageCount}
+            firstPage={1}
+          />
+          {reviewsSearchable && <SearchBox reviews={reviewsSearchable} />}
+        </div>
       )}
 
       <nav>

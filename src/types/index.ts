@@ -18,3 +18,5 @@ export interface IReviewDetails
   image: string;
   date: string;
 }
+
+export type IReviewSearchable = Pick<IReviewSummary, "slug" | "title">;

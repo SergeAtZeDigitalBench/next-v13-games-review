@@ -8,6 +8,7 @@ import {
   IReviewDetails,
   ICmsImage,
   ICmsItemPayload,
+  IReviewSearchable,
 } from "@/types";
 import { CMS_BASE_URL } from "@/constants";
 
@@ -35,6 +36,36 @@ const fetchJsonData = async <D = unknown>(
 
 const getImageUrl = (img: ICmsItemPayload<ICmsImage>) =>
   CMS_BASE_URL + img.data.attributes.url;
+
+export const getSearchableReviews = async (
+  options?: RequestInit,
+): Promise<[IReviewSearchable[], null] | [null, string]> => {
+  const reviewsUrl =
+    API_URL_REVIEWS +
+    "?" +
+    qs.stringify(
+      {
+        fields: ["slug", "title"],
+      },
+      { encodeValuesOnly: true },
+    );
+
+  const [response, error] = await fetchJsonData<ICmsListOfReviews>(
+    reviewsUrl,
+    options,
+  );
+
+  if (error !== null) return [null, error];
+
+  const reviewsListMin = response.data.map(
+    ({ attributes: { title, slug } }) => ({
+      title,
+      slug,
+    }),
+  );
+
+  return [reviewsListMin, null];
+};
 
 export const getReviewsList = async (
   pageSize: number,

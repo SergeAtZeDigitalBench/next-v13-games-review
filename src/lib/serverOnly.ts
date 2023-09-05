@@ -17,7 +17,7 @@ import {
 } from "@/types";
 import { fetchJsonData } from ".";
 
-const CMS_BASE_URL = process.env.NEXT_PUBLIC_CMS_BASE_URL;
+const CMS_BASE_URL = process.env.CMS_BASE_URL;
 
 const API_URL_REVIEWS = `${CMS_BASE_URL}/api/reviews`;
 

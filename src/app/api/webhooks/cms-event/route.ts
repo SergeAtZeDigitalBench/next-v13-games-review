@@ -14,10 +14,7 @@ export const POST = async (request: NextRequest) => {
    */
   const secret = request.headers.get("Authorization");
 
-  if (
-    secret !== process.env.NEXT_PUBLIC_CMS_SECRET ||
-    payload.model !== "review"
-  ) {
+  if (secret !== process.env.CMS_SECRET || payload.model !== "review") {
     return new Response(null, { status: 204 });
   }
 

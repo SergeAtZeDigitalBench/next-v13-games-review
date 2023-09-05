@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { revalidateTag } from "next/cache";
 import { IWhCmsReviewEvent } from "@/types";
-import { CACHE_TAG, CMS_SECRET } from "@/constants";
+import { CACHE_TAG } from "@/constants";
 
 /**
  * @description see `readme.md` more about webhooks settings
@@ -14,7 +14,10 @@ export const POST = async (request: NextRequest) => {
    */
   const secret = request.headers.get("Authorization");
 
-  if (secret !== CMS_SECRET || payload.model !== "review") {
+  if (
+    secret !== process.env.NEXT_PUBLIC_CMS_SECRET ||
+    payload.model !== "review"
+  ) {
     return new Response(null, { status: 204 });
   }
 

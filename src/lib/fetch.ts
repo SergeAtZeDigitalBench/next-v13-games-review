@@ -15,7 +15,7 @@ const CMS_BASE_URL = process.env.NEXT_PUBLIC_CMS_BASE_URL;
 
 const API_URL_REVIEWS = `${CMS_BASE_URL}/api/reviews`;
 
-const fetchJsonData = async <D = unknown>(
+export const fetchJsonData = async <D = unknown>(
   url: string,
   options?: RequestInit,
 ): Promise<[D, null] | [null, string]> => {

@@ -5,24 +5,8 @@ import { useRouter } from "next/navigation";
 import { Combobox } from "@headlessui/react";
 
 import { useIsClient } from "@/lib/hooks/useIsClient";
-import { getSearchableReviews } from "@/lib";
+import { getSearchableReviews, fetchJsonData } from "@/lib";
 import { IReviewSearchable } from "@/types";
-
-const filterReviews = (
-  reviews: IReviewSearchable[],
-  query: string,
-): IReviewSearchable[] => {
-  if (query.length < 2) return [];
-  const queryPattern = query.toLowerCase();
-
-  return reviews.filter(({ title }) => {
-    const titlePattern = title.toLowerCase();
-
-    return (
-      titlePattern.includes(queryPattern) || queryPattern.includes(titlePattern)
-    );
-  });
-};
 
 interface IProps {}
 
@@ -41,12 +25,23 @@ const SearchBox = ({}: IProps): JSX.Element | null => {
   };
 
   useEffect(() => {
-    if (query.length < 2) return;
+    if (query.length < 2) return setReviews([]);
+    const controller = new AbortController();
 
     (async () => {
-      const [res, err] = await getSearchableReviews(query);
+      const [res, err] = await fetchJsonData<IReviewSearchable[]>(
+        `/api/search?query=${query}`,
+        {
+          signal: controller.signal,
+        },
+      );
       res && setReviews(res);
+      err && setReviews([{ slug: "", title: err }]);
     })();
+
+    return () => {
+      controller.abort();
+    };
   }, [query]);
 
   if (!isClient) return null;
@@ -61,7 +56,7 @@ const SearchBox = ({}: IProps): JSX.Element | null => {
           onChange={handleChangeQuery}
         />
         <Combobox.Options className="absolute bg-white w-full rounded-b-lg">
-          {filterReviews(reviews, query).map((review) => (
+          {reviews.map((review) => (
             <Combobox.Option key={review.slug} value={review}>
               {({ active }) => (
                 <span

@@ -10,7 +10,8 @@ import {
   ICmsItemPayload,
   IReviewSearchable,
 } from "@/types";
-import { CMS_BASE_URL } from "@/constants";
+
+const CMS_BASE_URL = process.env.NEXT_PUBLIC_CMS_BASE_URL;
 
 const API_URL_REVIEWS = `${CMS_BASE_URL}/api/reviews`;
 
@@ -38,6 +39,7 @@ const getImageUrl = (img: ICmsItemPayload<ICmsImage>) =>
   CMS_BASE_URL + img.data.attributes.url;
 
 export const getSearchableReviews = async (
+  query: string,
   options?: RequestInit,
 ): Promise<[IReviewSearchable[], null] | [null, string]> => {
   const reviewsUrl =
@@ -46,6 +48,13 @@ export const getSearchableReviews = async (
     qs.stringify(
       {
         fields: ["slug", "title"],
+        filters: {
+          title: {
+            $containsi: query,
+          },
+        },
+        sort: ["title"],
+        pagination: { pageSize: 5 },
       },
       { encodeValuesOnly: true },
     );

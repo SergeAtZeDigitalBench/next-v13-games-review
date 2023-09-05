@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Combobox } from "@headlessui/react";
 
 import { useIsClient } from "@/lib/hooks/useIsClient";
+import { getSearchableReviews } from "@/lib";
 import { IReviewSearchable } from "@/types";
 
 const filterReviews = (
@@ -23,14 +24,13 @@ const filterReviews = (
   });
 };
 
-interface IProps {
-  reviews: IReviewSearchable[];
-}
+interface IProps {}
 
-const SearchBox = ({ reviews }: IProps): JSX.Element | null => {
-  const [query, setQuery] = useState<string>("");
+const SearchBox = ({}: IProps): JSX.Element | null => {
   const isClient = useIsClient();
   const router = useRouter();
+  const [query, setQuery] = useState<string>("");
+  const [reviews, setReviews] = useState<IReviewSearchable[]>([]);
 
   const handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
@@ -39,6 +39,15 @@ const SearchBox = ({ reviews }: IProps): JSX.Element | null => {
   const handleChange = (review: IReviewSearchable) => {
     router.push(`/reviews/${review.slug}`);
   };
+
+  useEffect(() => {
+    if (query.length < 2) return;
+
+    (async () => {
+      const [res, err] = await getSearchableReviews(query);
+      res && setReviews(res);
+    })();
+  }, [query]);
 
   if (!isClient) return null;
 

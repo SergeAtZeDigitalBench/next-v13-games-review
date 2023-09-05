@@ -28,7 +28,7 @@ const ReviewsPage = async ({
     },
   );
 
-  const [reviewsSearchable] = await getSearchableReviews({
+  const [reviewsSearchable] = await getSearchableReviews("", {
     next: { tags: [CACHE_TAG.REVIEWS_LIST] },
   });
 
@@ -45,7 +45,7 @@ const ReviewsPage = async ({
             firstPage={1}
           />
         )}
-        {reviewsSearchable && <SearchBox reviews={reviewsSearchable} />}
+        {reviewsSearchable && <SearchBox />}
       </div>
 
       <nav>

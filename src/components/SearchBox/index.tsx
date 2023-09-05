@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Combobox } from "@headlessui/react";
+import { useDebounce } from "use-debounce";
 
 import { useIsClient } from "@/lib/hooks/useIsClient";
 import { fetchJsonData } from "@/lib";
@@ -15,6 +16,7 @@ const SearchBox = ({}: IProps): JSX.Element | null => {
   const router = useRouter();
   const [query, setQuery] = useState<string>("");
   const [reviews, setReviews] = useState<IReviewSearchable[]>([]);
+  const [debouncedQuery] = useDebounce(query, 500);
 
   const handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
@@ -25,10 +27,10 @@ const SearchBox = ({}: IProps): JSX.Element | null => {
   };
 
   useEffect(() => {
-    if (query.length < 2) return setReviews([]);
+    if (debouncedQuery.length < 2) return setReviews([]);
 
     const controller = new AbortController();
-    const url = `/api/search?query=${encodeURIComponent(query)}`;
+    const url = `/api/search?query=${encodeURIComponent(debouncedQuery)}`;
 
     (async () => {
       const [res, err] = await fetchJsonData<IReviewSearchable[]>(url, {
@@ -41,7 +43,7 @@ const SearchBox = ({}: IProps): JSX.Element | null => {
     return () => {
       controller.abort();
     };
-  }, [query]);
+  }, [debouncedQuery]);
 
   if (!isClient) return null;
 

@@ -2,7 +2,7 @@ import React from "react";
 
 import FeaturedList from "@/components/FeaturedList";
 import Heading from "@/components/Heading";
-import { getReviewsList } from "@/lib";
+import { getReviewsList } from "@/lib/serverOnly";
 import { CACHE_TAG } from "@/constants";
 
 const Homepage = async () => {

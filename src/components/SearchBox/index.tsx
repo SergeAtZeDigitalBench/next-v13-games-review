@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Combobox } from "@headlessui/react";
 
 import { useIsClient } from "@/lib/hooks/useIsClient";
-import { getSearchableReviews, fetchJsonData } from "@/lib";
+import { fetchJsonData } from "@/lib";
 import { IReviewSearchable } from "@/types";
 
 interface IProps {}
@@ -26,15 +26,14 @@ const SearchBox = ({}: IProps): JSX.Element | null => {
 
   useEffect(() => {
     if (query.length < 2) return setReviews([]);
+
     const controller = new AbortController();
+    const url = `/api/search?query=${encodeURIComponent(query)}`;
 
     (async () => {
-      const [res, err] = await fetchJsonData<IReviewSearchable[]>(
-        `/api/search?query=${query}`,
-        {
-          signal: controller.signal,
-        },
-      );
+      const [res, err] = await fetchJsonData<IReviewSearchable[]>(url, {
+        signal: controller.signal,
+      });
       res && setReviews(res);
       err && setReviews([{ slug: "", title: err }]);
     })();

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { getSearchableReviews } from "@/lib";
+import { getSearchableReviews } from "@/lib/serverOnly";
 
 export const GET = async (request: NextRequest) => {
   const query = request.nextUrl.searchParams.get("query");

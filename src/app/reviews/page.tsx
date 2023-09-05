@@ -6,7 +6,8 @@ import Image from "next/image";
 import Pagination from "@/components/Pagination";
 import SearchBox from "@/components/SearchBox";
 import Heading from "@/components/Heading";
-import { getReviewsList, getPageNumber, getSearchableReviews } from "@/lib";
+import { getReviewsList, getSearchableReviews } from "@/lib/serverOnly";
+import { getPageNumber } from "@/lib";
 import { CACHE_TAG } from "@/constants";
 import { IPageProps } from "@/types";
 
